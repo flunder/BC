@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { AsyncStorage, Animated, View, Text, TouchableOpacity } from 'react-native'
 import { Colors, Grid, Borders, LikesKey } from '../constants'
 import { Cog, Heart, List, BabyMale, BabyFemale } from '../Components/Icons'
-import { Like } from '../Components'
+import { Like, Name } from '../Components'
 import { NamesMale, NamesFemale } from '../names'
 import { getRandomInt } from '../helpers'
 import { SettingsPanel } from './Home/SettingsPanel'
@@ -64,7 +64,7 @@ function Home() {
     }
 
     changeBackgroundColor = () => {
-        Animated.spring(backgroundColor.current, { toValue: colors[gender] }).start();
+        Animated.spring(backgroundColor.current, { toValue: colors[gender], useNativeDriver: false }).start();
     }
 
     triggerClearAsync = async () => {
@@ -149,9 +149,9 @@ function Home() {
                         {gender === "female" && <BabyFemale />}
                     </View>
 
-                    <Text style={{ fontFamily: 'System', fontWeight: '700', fontSize: 58, color: 'white' }}>
-                        {currentName}
-                    </Text>
+                    <Name
+                        name={currentName}
+                    />
                 </View>
 
                 <View style={{ height: 55, flexDirection: 'row', justifyContent: 'space-between', marginBottom: isIphoneX() ? 10 : 0  }}>

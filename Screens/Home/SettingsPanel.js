@@ -24,8 +24,8 @@ function ToggleButton({ setGender, gender }) {
 
     useEffect(() => {
         Animated.parallel([
-            Animated.spring(selectedPosition.current, { toValue: sliderPositions[gender], tension: 80, friction: 9 }),
-            Animated.spring(backgroundColor.current, { toValue: gender === "male" ? 1 : 0, tension: 40 })
+            Animated.spring(selectedPosition.current, { toValue: sliderPositions[gender], tension: 80, friction: 9, useNativeDriver: false }),
+            Animated.spring(backgroundColor.current, { toValue: gender === "male" ? 1 : 0, tension: 40, useNativeDriver: false })
         ]).start();
     }, [gender])
 
@@ -56,8 +56,8 @@ function SettingsPanel({ isShowing, hideSettings, setGender, gender, props }) {
 
     triggerHide = () => {
         Animated.parallel([
-            Animated.spring(backgroundOpacity.current, { toValue: 0, tension: 85 }),
-            Animated.spring(panelOffsetY.current, { toValue: panelHeight, tension: 85 })
+            Animated.spring(backgroundOpacity.current, { toValue: 0, tension: 85, useNativeDriver: true }),
+            Animated.spring(panelOffsetY.current, { toValue: panelHeight, tension: 85, useNativeDriver: true })
         ]).start();
 
         setTimeout(hideSettings, 300);
@@ -67,8 +67,8 @@ function SettingsPanel({ isShowing, hideSettings, setGender, gender, props }) {
         backgroundOpacity.current.setValue(0);
         panelOffsetY.current.setValue(panelHeight);
         Animated.parallel([
-            Animated.spring(backgroundOpacity.current, { toValue: 0.4, tension: 85 }),
-            Animated.spring(panelOffsetY.current, { toValue: 0, tension: 85 })
+            Animated.spring(backgroundOpacity.current, { toValue: 0.4, tension: 85, useNativeDriver: true }),
+            Animated.spring(panelOffsetY.current, { toValue: 0, tension: 85, useNativeDriver: true })
         ]).start();
     }
 
