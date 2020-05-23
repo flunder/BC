@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { AsyncStorage, Animated, View, Text, TouchableOpacity } from 'react-native'
+import { Animated, View, Text, TouchableOpacity } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage';
 import { Colors, Grid, Borders, LikesKey } from '../constants'
 import { Cog, Heart, List, BabyMale, BabyFemale } from '../Components/Icons'
 import { Like, Name } from '../Components'
