@@ -20,22 +20,12 @@ module.exports = {
         'react-hooks'
     ],
     rules: {
-        "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn",
+        'linebreak-style': [ 'error', 'unix' ],
         "no-undef": "off",
-        indent: [
-            'error',
-            4,
-            {
-                SwitchCase: 1
-            }
-        ],
-        'linebreak-style': [
-            'error',
-            'unix'
-        ],
-        semi: [
-            'off'
-        ]
+        "react-hooks/exhaustive-deps": "warn",
+        "react-hooks/rules-of-hooks": "error",
+        "react/prop-types": "off",
+        indent: [ 'error', 4, { SwitchCase: 1 } ],
+        semi: [ 'off' ],
     }
 }
