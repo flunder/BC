@@ -307,6 +307,7 @@
 				);
 				INFOPLIST_FILE = BabyCopter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -330,6 +331,7 @@
 				DEVELOPMENT_TEAM = T3543Z85C8;
 				INFOPLIST_FILE = BabyCopter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
