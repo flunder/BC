@@ -1,19 +1,24 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Animated, View, Text, TouchableOpacity } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
-import { Colors, Grid, Borders, LikesKey } from '../constants'
-import { Cog, Heart, List, BabyMale, BabyFemale } from '../Components/Icons'
+import { Colors, Grid, Borders, LikesKey, Languages } from '../constants'
+import { Cog, List, BabyMale, BabyFemale } from '../Components/Icons'
 import { Like, Name } from '../Components'
 import { NamesMale, NamesFemale } from '../names'
 import { getRandomInt } from '../helpers'
 import { SettingsPanel } from './Home/SettingsPanel'
 import { LikesPanel } from './Home/LikesPanel'
 import { isIphoneX } from '../helpers'
+import { useApiNames } from '../Hooks/useApiNames'
+import { apiAddLike } from '../Hooks/apiAddLike'
+import { apiRemoveLike } from '../Hooks/apiRemoveLike'
 
 const colors = {
     male: 1,
     female: 0,
 }
+
+const defaultLanguage = Object.keys(Languages)[0];
 
 const initialGender = 'female';
 
@@ -26,6 +31,8 @@ function Home() {
     const [likes, setLikes] = useState(false);
     const names = useRef({ male: NamesMale, female: NamesFemale });
     const backgroundColor = useRef(new Animated.Value(colors[initialGender]));
+    const apiLikes = useApiNames();
+    const [language, setLanguage] = useState(defaultLanguage)
 
     const backgroundColorInterpolated = useRef(
         backgroundColor.current.interpolate({
@@ -118,19 +125,22 @@ function Home() {
     addLike = async () => {
         const collection = likes ? [...likes, currentName] : [currentName];
         setLikes(collection);
-        // console.log('add');
+        await apiAddLike({ name: currentName, language, gender });
     }
 
     removeLike = async () => {
         const collection = likes.filter(n => n !== currentName);
         setLikes(collection);
-        // console.log('remove');
+        await apiRemoveLike({ name: currentName, language, gender });
     }
 
-    unlike = (name) => {
+    unlike = async (name) => {
         const collection = likes.filter(n => n !== name);
         setLikes(collection);
+        await apiRemoveLike({ name: name, language, gender });
     }
+
+    // console.log(apiLikes);
 
     return (
         <View style={{ flex: 1 }}>

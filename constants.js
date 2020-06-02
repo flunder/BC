@@ -71,3 +71,12 @@ export const CustomLayoutSpring = {
 /* Async Storage */
 
 export const LikesKey = "LIKES"
+
+/* Languages
+   https://www.loc.gov/standards/iso639-2/php/code_list.php
+*/
+
+export const Languages = {
+    en: 'en',
+    it: 'it'
+}
