@@ -147,13 +147,13 @@ function Home() {
 
             <Animated.View style={{ flex: 1, backgroundColor: backgroundColorInterpolated.current, padding: Grid.gutterWidth }}>
 
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: 55 }}>
                     <View>
                         <TrendingMessages
                             likes={apiLikes}
                         />
                     </View>
-                    <TouchableOpacity onPress={showSettings} activeOpacity={0.8} style={{ alignSelf: 'flex-end'}} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
+                    <TouchableOpacity onPress={showSettings} activeOpacity={0.8} style={{ top: -2 }}hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
                         <Cog />
                     </TouchableOpacity>
                 </View>
