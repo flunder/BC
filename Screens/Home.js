@@ -6,13 +6,13 @@ import { Cog, List, BabyMale, BabyFemale } from '../Components/Icons'
 import { Like, Name } from '../Components'
 import { NamesMale, NamesFemale } from '../names'
 import { getRandomInt } from '../helpers'
-import { SettingsPanel } from './Home/SettingsPanel'
 import { LikesPanel } from './Home/LikesPanel'
+import { SettingsPanel } from './Home/SettingsPanel'
+import { TrendingMessages } from './Home/TrendingMessages'
 import { isIphoneX } from '../helpers'
 import { useApiNames } from '../Hooks/useApiNames'
 import { apiAddLike } from '../Hooks/apiAddLike'
 import { apiRemoveLike } from '../Hooks/apiRemoveLike'
-
 const colors = {
     male: 1,
     female: 0,
@@ -31,8 +31,8 @@ function Home() {
     const [likes, setLikes] = useState(false);
     const names = useRef({ male: NamesMale, female: NamesFemale });
     const backgroundColor = useRef(new Animated.Value(colors[initialGender]));
-    const apiLikes = useApiNames();
     const [language, setLanguage] = useState(defaultLanguage)
+    const apiLikes = useApiNames({ gender, language });
 
     const backgroundColorInterpolated = useRef(
         backgroundColor.current.interpolate({
@@ -140,14 +140,19 @@ function Home() {
         await apiRemoveLike({ name: name, language, gender });
     }
 
-    // console.log(apiLikes);
+    // console.log('likes', apiLikes);
 
     return (
         <View style={{ flex: 1 }}>
 
             <Animated.View style={{ flex: 1, backgroundColor: backgroundColorInterpolated.current, padding: Grid.gutterWidth }}>
 
-                <View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <View>
+                        <TrendingMessages
+                            likes={apiLikes}
+                        />
+                    </View>
                     <TouchableOpacity onPress={showSettings} activeOpacity={0.8} style={{ alignSelf: 'flex-end'}} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
                         <Cog />
                     </TouchableOpacity>
@@ -166,18 +171,30 @@ function Home() {
                 </View>
 
                 <View style={{ height: 55, flexDirection: 'row', justifyContent: 'space-between', marginBottom: isIphoneX() ? 10 : 0  }}>
+
                     <TouchableOpacity onPress={handleLike} activeOpacity={0.9} style={{ marginRight: 15 }} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
                         <Like
                             liked={likes && likes.indexOf(currentName) !== -1}
                             gender={gender}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.9} onPress={getRandomName} style={{ flex: 1, backgroundColor: 'white', borderRadius: Borders.medium, paddingVertical: 12, alignItems: 'center' }} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+
+                    <TouchableOpacity
+                        activeOpacity={0.9}
+                        onPress={getRandomName}
+                        style={{ flex: 1, backgroundColor: 'white', borderRadius: Borders.medium, paddingVertical: 12, alignItems: 'center' }}
+                        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
                         <Text style={{ fontFamily: "System", fontSize: 18, color: Colors.primary, lineHeight: 30 }}>Next</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={showLikes} activeOpacity={0.9} style={{ width: 55, height: 55, backgroundColor: 'white', borderRadius: 100, alignItems: 'center', justifyContent: 'center', marginLeft: 15 }} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+
+                    <TouchableOpacity
+                        onPress={showLikes}
+                        activeOpacity={0.9}
+                        style={{ width: 55, height: 55, backgroundColor: 'white', borderRadius: 100, alignItems: 'center', justifyContent: 'center', marginLeft: 15 }}
+                        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
                         <List />
                     </TouchableOpacity>
+
                 </View>
 
             </Animated.View>
